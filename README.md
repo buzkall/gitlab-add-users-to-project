@@ -7,10 +7,16 @@ It's done with python 3 and uses the python-gitlab library.
 The idea is to use a CSV file with the emails, names and usernames of the users and specify the project to add them to.
 
 
-## Instalation
+<p align="center">
+    <img src="https://i.imgur.com/iDJuOA5.png" alt="gitlab_script_schema">
+</p>
 
-If this case I have python 3 with the alias python3, if you only have python 3 installed, you can use python and pip instead
-of the ones I put here
+
+
+## Installation
+
+If this case I have my local installation of python 3 with the alias python3, if you only have python 3 installed, 
+you can use "python" and "pip" instead of the alias I use here.
 
 ```
 virtualenv -p python3 venv
@@ -20,7 +26,7 @@ pip3 install -r requirements.txt
 
 Modify the config file before moving it to the home folder
 ```bash
-vi python-gitlab.cfg
+vi python-gitlab.example.cfg
 ```
 
 This file allows you to specify the config for several gitlab installations, if you only have one, 
@@ -32,7 +38,7 @@ the config file (also when receiving the error:
 gl = gitlab.Gitlab.from_config('projectName', '/PATH_TO/.python-gitlab.cfg')
 ```
 
-Specify your gitlab installation url and go to your Profile settings to get your access token. 
+Specify your gitlab installation url in the config file and go to your Profile settings to get your access token. 
 [Gitlab help page to get your token.](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)
 
 ```python
@@ -51,7 +57,7 @@ Now move the file to your home folder and add the dot before to convert it to a 
 The python-gitlab library expects this file to be there to login
 
 ```bash
-mv python-gitlab.cfg ~/.python-gitlab.cfg
+mv python-gitlab.example.cfg ~/.python-gitlab.cfg
 ```
 
 ## Usage
@@ -60,9 +66,14 @@ To use the script two parameters are needed:
 * The csv file
 * the id/path of the gitlab project
 
+The script expects to find this three columns in the csv (with this order and with a header row like in the example file):
+* email
+* username
+* name
+
 
 ```python
-python add_users_to_project.py import.csv root/test-api
+python3 add_users_to_project.py YOUR_FILE.csv USER/PROJECT-NAME
 ```
 
 #### Output
@@ -73,4 +84,16 @@ Created user with email: test2@mail.com - id: 52
 Added user user with email: test2@mail.com to the project
 
 ```
-If one of the user was already created, it will skip the creation process.
+
+
+If one of the user was already created or was already a member, it will skip the process.
+
+```python¬
+User already exists with email: test1@mail.com - id: 51
+User user with email: test1@mail.com already a member of the project
+User already exists with email: test2@mail.com - id: 52
+User user with email: test2@mail.com already a member of the project
+```
+
+
+

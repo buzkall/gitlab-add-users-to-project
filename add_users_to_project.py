@@ -22,6 +22,7 @@ try:
 
 except gitlab.GitlabGetError:
     print("No project with that id")
+    sys.exit(1)
 
 # get all existing users
 users = gl.users.list(all=True)
