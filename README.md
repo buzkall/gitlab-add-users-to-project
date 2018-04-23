@@ -96,4 +96,7 @@ User user with email: test2@mail.com already a member of the project
 ```
 
 
+<p align="center">
+    <img src="https://i.imgur.com/w7V6D55.png" alt="iterm_capture">
+</p>
 
